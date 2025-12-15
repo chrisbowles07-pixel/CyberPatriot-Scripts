@@ -1,7 +1,8 @@
 #!/bin/bash
 clear
 echo "Created by Matthew Bierman, Lightning McQueens, Faith Lutheran Middle & High School, Las Vegas, NV, USA"
-echo "Last Modified on Friday, January 21st, 2016, 7:20am"
+echo "Forked and edited by Christopher Bowles, Cyber Bears, Omar Bradley Middle School, San Antonio, TX, USA"
+echo "Last Modified on Monday, December 15th, 2025, 8:15am"
 echo "Linux Ubuntu Script"
 startTime=$(date +"%s")
 printTime()
@@ -90,12 +91,8 @@ do
 			read pw
 			echo -e "$pw\n$pw" | passwd ${users[${i}]}
 			printTime "${users[${i}]} has been given the password '$pw'."
-		else
-			echo -e "Moodle!22\nMoodle!22" | passwd ${users[${i}]}
-			printTime "${users[${i}]} has been given the password 'Moodle!22'."
 		fi
 		passwd -x30 -n3 -w7 ${users[${i}]}
-		usermod -L ${users[${i}]}
 		printTime "${users[${i}]}'s password has been given a maximum age of 30 days, minimum of 3 days, and warning of 7 days. ${users[${i}]}'s account has been locked."
 	fi
 done
@@ -127,7 +124,6 @@ do
 	fi
 	
 	passwd -x30 -n3 -w7 ${usersNew[${i}]}
-	usermod -L ${usersNew[${i}]}
 	printTime "${usersNew[${i}]}'s password has been given a maximum age of 30 days, minimum of 3 days, and warning of 7 days. ${users[${i}]}'s account has been locked."
 done
 
@@ -145,7 +141,7 @@ echo Does this machine need Printing?
 read printYN
 echo Does this machine need MySQL?
 read dbYN
-echo Will this machine be a Web Server?
+echo Will this machine be a Web Server (installs apache)?
 read httpYN
 echo Does this machine need DNS?
 read dnsYN
