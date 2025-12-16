@@ -141,7 +141,7 @@ echo Does this machine need Printing?
 read printYN
 echo Does this machine need MySQL?
 read dbYN
-echo Will this machine be a Web Server (installs apache)?
+echo Will this machine be a Web Server installs apache?
 read httpYN
 echo Does this machine need DNS?
 read dnsYN
