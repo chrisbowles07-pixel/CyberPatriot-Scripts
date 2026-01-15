@@ -4,6 +4,18 @@ echo "Created by Matthew Bierman, Lightning McQueens, Faith Lutheran Middle & Hi
 echo "Last Modified on Friday, January 19th, 2016, 2:13pm"
 echo "Linux Mint Script"
 startTime=$(date +"%s")
+
+touch ~/Desktop/Script.log
+echo > ~/Desktop/Script.log
+chmod 777 ~/Desktop/Script.log
+
+
+if ! grep -q "Linux Mint" /etc/os-release; then
+    echo "This script is only intended for Linux Mint. Exiting..."
+    exit 1
+fi
+
+
 printTime()
 {
 	endTime=$(date +"%s")
@@ -25,10 +37,6 @@ printTime()
 		fi
 	fi
 }
-
-touch ~/Desktop/Script.log
-echo > ~/Desktop/Script.log
-chmod 777 ~/Desktop/Script.log
 
 if [[ $EUID -ne 0 ]]
 then
@@ -95,11 +103,10 @@ do
 			echo -e "$pw\n$pw" | passwd ${users[${i}]}
 			printTime "${users[${i}]} has been given the password '$pw'."
 		else
-			echo -e "Moodle!22\nMoodle!22" | passwd ${users[${i}]}
-			printTime "${users[${i}]} has been given the password 'Moodle!22'."
+			echo -e "Cyb3rPatr!ots\nCyb3rPatr!ots" | passwd ${users[${i}]}
+			printTime "${users[${i}]} has been given the password 'Cyb3rPatr!ots'."
 		fi
 		passwd -x30 -n3 -w7 ${users[${i}]}
-		usermod -L ${users[${i}]}
 		printTime "${users[${i}]}'s password has been given a maximum age of 30 days, minimum of 3 days, and warning of 7 days. ${users[${i}]}'s account has been locked."
 	fi
 done
@@ -131,7 +138,6 @@ do
 	fi
 	
 	passwd -x30 -n3 -w7 ${usersNew[${i}]}
-	usermod -L ${usersNew[${i}]}
 	printTime "${usersNew[${i}]}'s password has been given a maximum age of 30 days, minimum of 3 days, and warning of 7 days. ${users[${i}]}'s account has been locked."
 done
 
@@ -149,7 +155,7 @@ echo Does this machine need Printing?
 read printYN
 echo Does this machine need MySQL?
 read dbYN
-echo Will this machine be a Web Server?
+echo Will this machine be a Web Server does it need apache?
 read httpYN
 echo Does this machine need DNS?
 read dnsYN
@@ -746,3 +752,4 @@ printTime "Auth log has been created."
 cp /var/log/auth.log ~/Desktop/logs/syslog.log
 chmod 777 ~/Desktop/logs/syslog.log
 printTime "System log has been created."
+echo "Script is done"
