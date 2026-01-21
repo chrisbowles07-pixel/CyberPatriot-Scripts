@@ -99,29 +99,6 @@ cp -a /etc/group "$BACKUP_DIR/group.bak" 2>/dev/null || printTime "Failed to cop
 cp -a /etc/passwd "$BACKUP_DIR/passwd.bak" 2>/dev/null || printTime "Failed to copy /etc/passwd"
 chmod 600 "$BACKUP_DIR"/group.bak "$BACKUP_DIR"/passwd.bak 2>/dev/null || true
 printTime "/etc/group and /etc/passwd files backed up."
-
-# Ask for new users (non-blocking)
-echo "Type user account names of users you want to add, separated by spaces (or press Enter to skip):"
-read -r -a usersNew
-usersNewLength=${#usersNew[@]}
-
-for (( i=0; i<usersNewLength; i++ )); do
-    username=${usersNew[i]}
-    clear
-    echo "Creating user: $username"
-    # adduser is interactive; use useradd with sensible defaults if non-interactive preferred.
-    adduser "$username" || { printTime "adduser failed for $username"; continue; }
-    printTime "A user account for $username has been created."
-
-    # Ask about admin privileges
-    read -r -p "Make $username administrator? (yes/no) " ynNew
-    if [[ "$ynNew" =~ ^([yY][eE][sS]|[yY])$ ]]; then
-        usermod -aG sudo,adm,lpadmin,sambashare "$username"
-        printTime "$username has been added to admin groups (sudo, adm, lpadmin, sambashare)."
-    else
-        printTime "$username has been left as a standard user."
-    fi
-
     # Set password aging (keeps original values)
     passwd -x 30 -n 3 -w 7 "$username" || printTime "passwd aging failed for $username"
     printTime "$username: password aging set (max 30, min 3, warn 7)."
