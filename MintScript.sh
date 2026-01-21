@@ -253,7 +253,7 @@ then
 else
 	echo Response not recognized.
 fi
-gnome-terminal -- bash -c 'systemctl status ssh;
+gnome-terminal -- bash -c 'systemctl status ssh'
 printTime "SSH is complete."
 
 clear
